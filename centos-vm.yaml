@@ -1,0 +1,26 @@
+apiVersion: vmoperator.vmware.com/v1alpha1
+kind: VirtualMachine
+metadata:
+  name: centos-vm
+  namespace: tanzu
+spec:
+  networkInterfaces:
+  - networkName: "workload-network-1"
+    networkType: vsphere-distributed
+  className: best-effort-xsmall
+  imageName: centos8
+  powerState: poweredOn
+  storageClass: tanzu
+  vmMetadata:
+    configMapName: centos-vm-cfm
+    transport: OvfEnv
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: centos-vm-cfm
+    namespace: tanzu
+data: 
+  hostname: centos-vm
+  password: VMware1!
+  public-keys:
